@@ -89,9 +89,13 @@ function OnboardingScreen({ onDone }: { onDone: () => void }) {
         data={SLIDES}
         horizontal
         pagingEnabled
-        scrollEnabled={false}
+        scrollEnabled={true}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => String(item.id)}
+        onMomentumScrollEnd={(e) => {
+          const newIndex = Math.round(e.nativeEvent.contentOffset.x / width);
+          setSlideIndex(newIndex);
+        }}
         renderItem={({ item }) => (
           <View style={[styles.slidePage, { width }]}>
             <Text style={styles.slideText}>{item.text}</Text>
